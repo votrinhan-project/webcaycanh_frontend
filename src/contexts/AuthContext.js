@@ -6,7 +6,7 @@
  */
 
 import { createContext, useState, useEffect } from 'react';
-const jwtDecode = require('jwt-decode');
+const jwtDecode = require('jwt-decode').default;
 
 export const AuthContext = createContext();
 
