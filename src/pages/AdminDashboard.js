@@ -379,7 +379,8 @@ function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map(product => (
+                  // {products.map(product => (
+                  {[...products].sort((a, b) => a.id - b.id).map(product => (
                     <tr key={product.id}>
                       <td>{product.id}</td>
                       <td>{product.ten_cay}</td>
