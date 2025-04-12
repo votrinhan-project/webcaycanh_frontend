@@ -5,7 +5,7 @@
  * Cho phép người dùng cập nhật số lượng hoặc xóa sản phẩm khỏi giỏ.
  */
 
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
 import '../index.css';
@@ -47,7 +47,11 @@ function Cart() {
                     <img 
                       src={`${process.env.PUBLIC_URL}/images_tree/${item.ten_cay}_1.jpg`} 
                       alt={item.ten_cay} 
-                      onError={(e) => e.target.src = "/images_tree/default.jpg"}
+                      onError={(e) => {
+                        e.target.src = (item.images && item.images.length > 0)
+                          ? item.images[0]
+                          : "/images_tree/default.jpg";
+                      }}
                     />
                     {item.ten_cay}
                   </td>
