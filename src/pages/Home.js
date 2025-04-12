@@ -73,7 +73,7 @@ function Home() {
 
   const getFallbackImage = (product) =>
     (product.images && product.images.length > 0)
-      ? product.images[0]
+      ? product.images[1]
       : "/images_tree/default.jpg";
 
   return (
