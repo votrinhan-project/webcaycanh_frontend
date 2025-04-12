@@ -5,7 +5,7 @@
  * Hiển thị thông tin chi tiết của sản phẩm, các hình ảnh và cho phép người dùng thêm vào giỏ hoặc mua ngay.
  */
 
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -20,9 +20,9 @@ function ProductDetail() {
 
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(1);
-  
-  const images = [1, 2, 3, 4, 5];
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const thumbnails = [0, 1, 2, 3, 4];
 
   useEffect(() => {
     api.get(`/api/products/${id}`)
@@ -35,6 +35,14 @@ function ProductDetail() {
   }, [id, navigate]);
 
   if (!product) return <div>Loading...</div>;
+
+  const getFallbackImage = (index) => {
+    return (product.images && product.images[index]) ? product.images[index] : "/images_tree/default.jpg";
+  };
+
+  const localImageUrl = (index) => {
+    return `${process.env.PUBLIC_URL}/images_tree/${product.ten_cay}_${index + 1}.jpg`;
+  };
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity: Number(quantity) });
@@ -52,25 +60,28 @@ function ProductDetail() {
           <div>
             <div className="main-image">
               <img 
-                src={`${process.env.PUBLIC_URL}/images_tree/${product.ten_cay}_${selectedImage}.jpg`} 
+                src={localImageUrl(selectedImage)}
                 alt={`${product.ten_cay} main`} 
-                onError={(e) => e.target.src = "/images_tree/default.jpg"}
+                onError={(e) => {
+                  e.currentTarget.src = getFallbackImage(selectedImage);
+                }}
               />
             </div>
             <div className="thumbnail-container">
-              {images.map(num => (
+              {thumbnails.map((index) => (
                 <img
-                  key={num}
-                  src={`${process.env.PUBLIC_URL}/images_tree/${product.ten_cay}_${num}.jpg`}
-                  alt={`${product.ten_cay} thumbnail ${num}`}
+                  key={index}
+                  src={localImageUrl(index)}
+                  alt={`${product.ten_cay} thumbnail ${index + 1}`}
                   style={{ 
-                    border: selectedImage === num ? '3px solid #007bff' : '1px solid #ccc',
-                    opacity: selectedImage === num ? 1 : 0.6,
+                    border: selectedImage === index ? '3px solid #007bff' : '1px solid #ccc',
+                    opacity: selectedImage === index ? 1 : 0.6,
+                    cursor: 'pointer'
                   }}
-                  onClick={() => setSelectedImage(num)}
-                  onMouseOver={(e) => e.currentTarget.style.opacity = 1}
-                  onMouseOut={(e) => e.currentTarget.style.opacity = selectedImage === num ? 1 : 0.6}
-                  onError={(e) => e.target.src = "/images_tree/default.jpg"}
+                  onClick={() => setSelectedImage(index)}
+                  onError={(e) => {
+                    e.currentTarget.src = getFallbackImage(index);
+                  }}
                 />
               ))}
             </div>
@@ -78,10 +89,10 @@ function ProductDetail() {
           <div className="info">
             <div>
               <h1>{product.ten_cay}</h1>
-              <p><strong>Tên khoa học:</strong> <br></br> {product.ten_khoa_hoc}</p>
-              <p><strong>Đặc điểm:</strong> <br></br> {product.dac_diem}</p>
-              <p><strong>Ý nghĩa phong thủy:</strong> <br></br> {product.y_nghia_phong_thuy}</p>
-              <p><strong>Lợi ích:</strong> <br></br> {product.loi_ich}</p>
+              <p><strong>Tên khoa học:</strong><br /> {product.ten_khoa_hoc}</p>
+              <p><strong>Đặc điểm:</strong><br /> {product.dac_diem}</p>
+              <p><strong>Ý nghĩa phong thủy:</strong><br /> {product.y_nghia_phong_thuy}</p>
+              <p><strong>Lợi ích:</strong><br /> {product.loi_ich}</p>
               <div className="price">
                 <p>Giá:</p> 
                 <div className="price_vnd">{Number(product.gia).toLocaleString()}đ</div>
@@ -97,7 +108,6 @@ function ProductDetail() {
                 />
               </div>
             </div>
-
             <div className="buttons">
               <button onClick={handleBuyNow} className="btn btn-buy-now">
                 Mua ngay
