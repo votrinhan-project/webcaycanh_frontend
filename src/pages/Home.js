@@ -68,6 +68,14 @@ function Home() {
     "/background/background_5.jpg"
   ];
 
+  const getLocalImageUrl = (product) =>
+    `${process.env.PUBLIC_URL}/images_tree/${product.ten_cay}_1.jpg`;
+
+  const getFallbackImage = (product) =>
+    (product.images && product.images.length > 0)
+      ? product.images[0]
+      : "/images_tree/default.jpg";
+
   return (
     <div className="home">
       <div className="slideshow">
@@ -98,10 +106,12 @@ function Home() {
               className="product-card"
               onClick={() => handleCardClick(product)}
             >
-              <img 
-                src={`${process.env.PUBLIC_URL}/images_tree/${product.ten_cay}_1.jpg`} 
-                alt={product.ten_cay} 
-                onError={(e) => e.target.src = "/images_tree/default.jpg"} 
+              <img
+                src={getLocalImageUrl(product)}
+                alt={product.ten_cay}
+                onError={(e) => {
+                  e.currentTarget.src = getFallbackImage(product);
+                }}
               />
               <h3>{product.ten_cay}</h3>
               <p>Giá: {Number(product.gia).toLocaleString()}đ</p>
