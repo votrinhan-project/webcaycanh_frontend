@@ -189,6 +189,7 @@ html, body {
   
 .footer-col ul li a:hover {
     color: #fff;
+    text-decoration: underline;
 }
 
 .about-col {
@@ -196,11 +197,24 @@ html, body {
     margin-right: 1rem;
 }
   
-.about-text {
+ 
+/* Cột Về chúng tôi & Liên hệ */
+.footer-about-contact {
+    flex-basis: 30%; /* Cho cột này rộng hơn một chút */
+    min-width: 250px;
+}
+
+.about-text, .contact-details p {
     line-height: 1.6;
-    color: #ccc;
+    color: #bdbdbd;
     font-size: 0.9rem;
-    text-align: justify;
+    margin-bottom: 0.5rem; /* Giảm khoảng cách dưới */
+}
+
+.contact-details svg {
+    margin-right: 0.5rem;
+    color: #99a67a; /* Màu icon */
+    vertical-align: middle;
 }
 
 .icon-main {
