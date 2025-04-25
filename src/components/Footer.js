@@ -1,81 +1,65 @@
 // frontend/src/components/Footer.js
 
 /**
- * @fileOverview Component Footer hiển thị chân trang.
+ * @fileOverview Component Footer hiển thị chân trang (phiên bản được thiết kế lại).
  */
 
-import '../index.css';
-import { FaGoogle, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import React from 'react';
+import '../index.css'; // Đảm bảo CSS được cập nhật tương ứng
+import { FaGoogle, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-col about-col">
-          <h3>ABOUT US</h3>
+        {/* Cột Về chúng tôi & Liên hệ */}
+        <div className="footer-col footer-about-contact">
+          <h3>Về Nhóm17 Shop</h3>
           <p className="about-text">
-            Những ai điên đủ nghĩ rằng mình có thể thay đổi thế giới sẽ là những người làm được điều đó.
-            <br /><br /><em>Steve Jobs</em>
+            Mang thiên nhiên vào không gian sống của bạn với những loại cây cảnh độc đáo và chất lượng.
           </p>
-          <div className="icon-main">
-            <div className="icons"><FaGoogle className="icon" /></div>
-            <div className="icons"><FaFacebookF className="icon" /></div>
-            <div className="icons"><FaTwitter className="icon" /></div>
-            <div className="icons"><FaInstagram className="icon-ins" /></div>
-            <div className="icons"><FaLinkedinIn className="icon" /></div>
+          <div className="contact-details">
+            <p><FaMapMarkerAlt /> 180 Cao Lỗ, P4, Q8, TP.HCM</p>
+            <p><FaEnvelope /> nhom17@gmail.com</p>
+            <p><FaPhoneAlt /> 0335106271</p>
           </div>
+          
         </div>
 
+        {/* Cột Hỗ trợ khách hàng */}
         <div className="footer-col">
-          <h3>INFORMATION</h3>
+          <h3>Hỗ trợ</h3>
           <ul>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Privacy Information</a></li>
-            <li><a href="#">Return &amp; Policy</a></li>
-            <li><a href="#">Terms &amp; Condition</a></li>
-            <li><a href="#">Manufacturers</a></li>
+            <li><a href="/contact">Liên hệ</a></li>
+            <li><a href="/faq">Câu hỏi thường gặp</a></li>
+            <li><a href="/shipping">Chính sách giao hàng</a></li>
+            <li><a href="/returns">Chính sách đổi trả</a></li>
           </ul>
         </div>
 
+        {/* Cột Tài khoản */}
         <div className="footer-col">
-          <h3>MY ACCOUNT</h3>
+          <h3>Tài khoản</h3>
           <ul>
-            <li><a href="#">My Account</a></li>
-            <li><a href="#">My Cart</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Wishlist</a></li>
-            <li><a href="#">Checkout</a></li>
+            <li><a href="/user">Tài khoản của tôi</a></li>
+            <li><a href="/user/orders">Lịch sử đơn hàng</a></li>
+            <li><a href="/cart">Giỏ hàng</a></li>
+            <li><a href="/wishlist">Danh sách yêu thích</a></li>
           </ul>
         </div>
 
-        <div className="footer-col">
-          <h3>OUR SERVICE</h3>
-          <ul>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Complain</a></li>
-            <li><a href="#">Installation</a></li>
-            <li><a href="#">Delivery</a></li>
-            <li><a href="#">Warranty Policy</a></li>
-          </ul>
-        </div>
-
+        {/* Cột Đăng ký nhận tin (Tùy chọn) */}
         <div className="footer-col newsletter-col">
-          <h3>NEWSLETTER</h3>
-          <div className="newsletter-form">
-            <input type="email" placeholder="Your Mail" />
-            <button>Send Mail</button>
-          </div>
+          <h3>Đăng ký nhận tin</h3>
+          <p>Nhận thông tin về sản phẩm mới và ưu đãi đặc biệt.</p>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Nhập email của bạn" aria-label="Email for newsletter"/>
+            <button type="submit">Đăng ký</button>
+          </form>
         </div>
       </div>
 
-      <div className="footer-bt">
-        <div className="footer-bottom">
-          <p>Copyright Webcaycanh 2025. All Right Reserved.</p>
-          <div className="payment-icons">
-            <img src="/background/paypol.png" alt="paypol" />
-          </div>
-        </div>
-      </div>
+      
     </footer>
   );
 }
